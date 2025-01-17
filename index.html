@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Letter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fbd3e9, #bb99f7, #d4e1f9);
+            background-size: 200% 200%;
+            animation: gradientAnimation 6s ease infinite;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #d9b99b;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transform-origin: bottom;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+        }
+
+        .envelope:hover {
+            cursor: pointer;
+        }
+
+        .envelope.open {
+            transform: rotateX(-180deg);
+        }
+
+        .envelope .front, .envelope .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .envelope .front {
+            background: #d9b99b;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .envelope .back {
+            transform: rotateX(180deg);
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .back iframe {
+            width: 90vw;
+            height: 90vh;
+            border: none;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope" onclick="openLetter()">
+            <div class="front">📩 Click Me!</div>
+            <div class="back">
+                <iframe src="carta.pdf" title="Letter"></iframe>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openLetter() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.add('open');
+        }
+    </script>
+</body>
+</html>
